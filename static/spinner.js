@@ -24,5 +24,5 @@ var opts = {
 }
 var target = document.getElementById('spinner')
 var spinner = new Spinner(opts);
-
+spinner.spin(target);
 

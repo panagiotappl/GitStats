@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+import json
 from flask import request
 import jinja2
 
@@ -18,8 +19,9 @@ def hello_world():
 @app.route('/analyze', methods=['POST'])
 def analyze():
     analyzer = Analyzer()
-    statistics = analyzer.analyze(request.form.get("path"))
-
+    data = json.loads(request.data.decode())
+    path = data["path"]
+    statistics = analyzer.analyze(path)
     return jsonify(statistics)
 
 

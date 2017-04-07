@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="gitApp">
 <head>
     <meta charset="UTF-8">
     <title>Git Stats</title>
@@ -10,15 +10,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./static/style.css">
 
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="https://rawgit.com/benkeen/d3pie/master/d3pie/d3pie.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+    <script src="http://code.angularjs.org/1.5.3/angular-route.js"></script>
     <script src="http://spin.js.org/spin.min.js"></script>
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
+
 
 
 
 </head>
 
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body ng-controller="gitController" id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -44,11 +52,11 @@
 
         <h1>Git Repository Report</h1>
         <p>for</p>
-        <form id="analyzeForm" role="form">
-            <input type="text" class="form-control" id="path">
+        <form ng-submit="getResults()" id="analyzeForm" role="form" >
+            <input type="text" class="form-control" id="path" ng-model="path">
         </form>
     </div>
-    <div id="general" class="container-fluid slideanim" align="middle">
+    <div ng-if="idle"  class="container-fluid slideanim" align="middle">
         <div id="arrow" class="row">
             <i class="fa fa-arrow-up fa-lg" aria-hidden="true"></i>
         </div>
@@ -57,19 +65,125 @@
         </div>
 
     </div>
-    <div id="spinner" class="container-fluid" align="middle">
+    <div ng-show="processing" id="spinner" class="container-fluid" align="middle">
     </div>
 
-    <div class="container-fluid" align="middle">
-        <p>test</p>
-       {{my_string}}
+    <div ng-if="results" align="middle">
+       <div id="general" class="container-fluid slideanim" align="middle">
+           <h1>General</h1>
+           <div class="row">
+               <div class="col-md-6">
+                   <div id="p1" class="panel panel-default bgdark">
+                       <div class="stat">
+                           //result.file_count//
+                       </div>
+                       Files
+                   </div>
+               </div>
+               <div class="col-md-6">
+                   <div id="p2" class="panel panel-default bgteal">
+                       <div class="stat">
+                           //result.line_count_total//
+                       </div>
+                       Lines
+                   </div>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-md-6">
+                   <div id="p4" class="panel panel-default bgdarkbrown">
+                       <div class="stat">
+                           //result.com_stats.commits//
+                       </div>
+                       Commits
+                   </div>
+               </div>
+               <div class="col-md-6">
+                   <div id="p3" class="panel panel-default bglightteal">
+                       <div class="stat">
+                           //result.com_stats.committers//
+                       </div>
+                       Authors
+                   </div>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-md-4">
+                   <div id="p5" class="panel panel-default bgbrown">
+                       <div class="stat">
+                           //result.br_stats.tags//
+                       </div>
+                       Tags Count
+                   </div>
+               </div>
+               <div class="col-md-4">
+                   <div id="p6" class="panel panel-default bgtan">
+                       <div class="stat">
+                           //result.br_stats.localCount//
+                       </div>
+                       Local Branches
+                   </div>
+               </div>
+               <div class="col-md-4">
+                   <div i class="panel panel-default bgtan">
+                       <div class="stat">
+                           //result.br_stats.remoteCount//
+                       </div>
+                       Remote Branches
+                   </div>
+               </div>
+           </div>
+        </div>
+        <div id="stats" class="container-fluid slideanim" align="middle">
+            <div class="row">
+                <h1>Statistics</h1>
+            </div>
+            <div class="row">
+                <h2>Percentage of commits per author</h2>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bgdarkbrown">Author</th>
+                        <th class="header bgdarkbrown">% of commits</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key, value) in result.com_stats.com_per_author">
+                        <td>//key//</td>
+                        <td>//value//</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="pieChart">
+                </div>
+            </div>
+        </div>
     </div>
+    <footer class="text-center footer">
+        <a href="#myPage" title="To Top"><i class="fa fa-arrow-up" aria-hidden="true" style="font-size:40px; color:#2a313d"></i>
+        </a>
+    </footer>
+    <script>
+    $(document).ready(function(){
+    $(".navbar a, footer a[href='#myPage'], td a").on('click', function(event) {
+        if (this.hash !== "") {
+        event.preventDefault();
+        var hash = this.hash;
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 900, function(){
+            window.location.hash = hash;
+        });
+        }
+    })
+    ;})
+    </script>
 
 </body>
 
 <script type="text/javascript" src="{{ url_for('static', filename = 'particles.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'spinner.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
-
-
+<script type="text/javascript" src="{{  url_for('static', filename = 'piechart.js') }}"></script>
 </html>
