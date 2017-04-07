@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f4d0650d-477e-48d8-9c10-2d85fa051792" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GitStats.py" afterPath="$PROJECT_DIR$/GitStats.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/app.js" afterPath="$PROJECT_DIR$/static/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/spinner.js" afterPath="$PROJECT_DIR$/static/spinner.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -479,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491573175036</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added general info, statistics and piechart.">
+      <created>1491585919383</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1491585919383</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -518,7 +521,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added particles and spinner" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added particles and spinner" />
+    <MESSAGE value="Added general info, statistics and piechart." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added general info, statistics and piechart." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
