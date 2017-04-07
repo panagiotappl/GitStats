@@ -248,6 +248,51 @@
                 </table>
             </div>
             <div id="chartdiv"></div>
+            <div class="row">
+                <h2>Percentage of commits per author per branch</h2>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bglightteal">Local Branch</th>
+                        <th class="header bglightteal">Author</th>
+                        <th class="header bglightteal">% of commits</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key, value) in result.br_stats.com_br_authL">
+                        <td>//key//</td>
+                        <td ng-repeat="commiter in value">//commiter//</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="branches" class="container-fluid slideanim" align="middle">
+            <div class="row">
+                <h2>Local Branches</h2>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bglightteal">Branch</th>
+                        <th class="header bglightteal">Date Created</th>
+                        <th class="header bglightteal">Date Modified</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="i in result.br_stats.localB">
+                        <td>//i//</td>
+                        <td>//result.br_stats.branch_dates_local.i[0]//</td>
+                        <td>//result.br_stats.branch_dates_local.i[1]//</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <footer class="text-center footer">
