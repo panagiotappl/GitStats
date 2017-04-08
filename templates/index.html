@@ -261,9 +261,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="(key, value) in result.br_stats.com_br_authL">
-                        <td>//key//</td>
-                        <td ng-repeat="commiter in value">//commiter//</td>
+                    <tr ng-repeat="value in com_br_authL">
+                        <td>//value[0]//</td>
+                        <td>//value[1]//</td>
+                        <td>//value[2]//</td>
+
                     </tr>
                     </tbody>
                 </table>
@@ -284,10 +286,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="i in result.br_stats.localB">
-                        <td>//i//</td>
-                        <td>//result.br_stats.branch_dates_local.i[0]//</td>
-                        <td>//result.br_stats.branch_dates_local.i[1]//</td>
+                    <tr ng-repeat="(key, value) in result.br_stats.branch_dates_local">
+                        <td>//key//</td>
+                        <td>//value[0]//</td>
+                        <td>//value[1]//</td>
 
                     </tr>
                     </tbody>

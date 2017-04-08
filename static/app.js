@@ -32,6 +32,7 @@
                         console.log(response);
                         $scope.setPieChart(response.com_stats.com_per_author);
                         $scope.setBarChart(response.br_stats.branchCommits);
+                        $scope.setCom_br_authL(response.br_stats.com_br_authL);
                     }).
                     error(function(error) {
 
@@ -39,6 +40,25 @@
 
                 };
 
+                $scope.setCom_br_authL = function(data){
+                    $scope.com_br_authL = [];
+                    var keys = Object.keys(data);
+                    $.each(data, function( key, value ) {
+
+                        for(var i = 0; i < value.length; i++){
+                            var subvalue = [];
+                            subvalue.push(key);
+                            for(var j = 0; j < value[i].length; j++) {
+
+                                subvalue.push(value[i][j]);
+                            }
+                            $scope.com_br_authL.push(subvalue);
+
+                        }
+
+                    });
+                    console.log($scope.com_br_authL);
+                }
                 $scope.setPieChart = function(com_auth){
                     var values = [];
                     var keys = Object.keys(com_auth);
