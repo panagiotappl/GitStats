@@ -3,6 +3,7 @@ $(document).ready(function(){
         if (this.hash !== "") {
             event.preventDefault();
             var hash = this.hash;
+            console.log(hash);
             $('html, body').animate({
                 scrollTop: $(hash).offset().top
             }, 900, function(){
@@ -10,4 +11,16 @@ $(document).ready(function(){
             });
         }
     })
+
+
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 2000) {
+          $(this).addClass("slide");
+        }
+    });
+  });
     ;})

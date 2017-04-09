@@ -7,8 +7,8 @@
             $interpolateProvider.startSymbol('//');
             $interpolateProvider.endSymbol('//');
         })
-        .controller('gitController', ['$scope', '$http',
-            function($scope, $http) {
+        .controller('gitController', ['$scope', '$http', '$location',  '$anchorScroll',
+            function($scope, $http, $location, $anchorScroll) {
 
                 $scope.idle = true;
                 $scope.processing = false;
@@ -25,16 +25,23 @@
                     $scope.processing = true;
 
                     $http.post('/analyze', {"path": userInput}).
-                    success(function(response) {
+                    then(function(response) {
                         $scope.processing = false;
                         $scope.results = true;
-                        $scope.result = response;
-                        console.log(response);
-                        $scope.setPieChart(response.com_stats.com_per_author);
-                        $scope.setBarChart(response.br_stats.branchCommits);
-                        $scope.setCom_br_authL(response.br_stats.com_br_authL);
-                    }).
-                    error(function(error) {
+                        $scope.result = response.data;
+                        $scope.setPieChart($scope.result.com_stats.com_per_author);
+                        $scope.setBarChart($scope.result.br_stats.branchCommits);
+                        $scope.setCom_br_authL($scope.result.br_stats.com_br_authL);
+                        event.preventDefault();
+
+                        $(document).ready(function() {
+                            $('html, body').animate({
+                                scrollTop: $('#general').offset().top
+                            }, 900, function () {
+                                window.location.hash = '#general';
+                            });
+                        });
+                    }, function(error) {
 
                     });
 

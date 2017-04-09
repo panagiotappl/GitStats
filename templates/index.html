@@ -57,23 +57,16 @@
         <h1>Git Repository Report</h1>
         <p>for</p>
         <form ng-submit="getResults()" id="analyzeForm" role="form" >
-            <input type="text" class="form-control" id="path" ng-model="path">
+            <input type="text" class="form-control" id="path" ng-model="path" autofocus>
         </form>
-    </div>
-    <div ng-if="idle"  class="container-fluid slideanim" align="middle">
-        <div id="arrow" class="row">
-            <i class="fa fa-arrow-up fa-lg" aria-hidden="true"></i>
+         <div ng-show="processing" id="spinner" class="container-fluid" align="middle" ng-cloak>
         </div>
-        <div class="row">
-            <h1>Insert the full path of a git repository stored in your computer above.</h1>
-        </div>
-
-    </div>
-    <div ng-show="processing" id="spinner" class="container-fluid" align="middle">
     </div>
 
-    <div ng-if="results" align="middle">
-       <div id="general" class="container-fluid slideanim" align="middle">
+
+
+    <div id='content' ng-if="results" align="middle">
+       <div id="general" class="container-fluid " align="middle">
            <h1>General</h1>
            <div class="row">
                <div class="col-md-6">
@@ -138,7 +131,7 @@
                </div>
            </div>
         </div>
-        <div id="stats" class="container-fluid slideanim" align="middle">
+        <div id="stats" class="container-fluid " align="middle">
             <div class="row">
                 <h1>Statistics</h1>
             </div>
@@ -272,7 +265,10 @@
             </div>
         </div>
 
-        <div id="branches" class="container-fluid slideanim" align="middle">
+        <div id="branches" class="container-fluid " align="middle">
+            <div class="row">
+                <h1>Branches</h1>
+            </div>
             <div class="row">
                 <h2>Local Branches</h2>
             </div>
@@ -295,11 +291,33 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+                <h2>Remote Branches</h2>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bglightteal">Branch</th>
+                        <th class="header bglightteal">Date Created</th>
+                        <th class="header bglightteal">Date Modified</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key, value) in result.br_stats.branch_dates_remote">
+                        <td>//key//</td>
+                        <td>//value[0]//</td>
+                        <td>//value[1]//</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <footer class="text-center footer">
-        <a href="#myPage" title="To Top"><i class="fa fa-arrow-up" aria-hidden="true" style="font-size:40px; color:#2a313d"></i>
-        </a>
+    <footer class="footer text-center">
+        <p>Developed by: Panagiota Poulopoulou</p>
+        <p><a href="https://github.com/panagiotappl/GitStats">View code</a> on GitHub</p>
     </footer>
 
 
