@@ -6,7 +6,6 @@ from datetime import datetime
 from itertools import izip
 
 
-
 class Analyzer:
     def __init__(self):
         self.statistics = dict()
@@ -287,18 +286,19 @@ class Analyzer:
         results = self.execute_command("git shortlog -sn --all")
 
         for res in results:
+            res = res.strip()
+            res = res.split('\t')
             if len(res) is 2:
-                res = res.strip()
-                res = res.split('\t')
                 commits = res[0]
                 name = res[1]
+                print commits, "  ", name
                 com_rates[name] = [round(float(commits) / float(days), 3), round(float(commits) / float(days) * 7, 3),
                                    round(float(commits) / float(days) * 30, 3)]
                 # A week is 7 days.
                 # A month is 30.
 
         br_stats["com_rates"] = com_rates
-
+        print com_rates
         # Percentage of commits per branch.
         # Get all the commits from all branches
         br_stats["branchCommits"] = {}
@@ -310,27 +310,34 @@ class Analyzer:
 
         return br_stats
 
-    def check_validation(self):
-        result = self.execute_command("git rev-parse --is-inside-work-tree")
-        if len(result) == 0 or result[0].strip('\n') != "true":
-            print "Not a valid git repository."
-            sys.exit()
+    def check_validation(self, repo_path):
+        not_valid = False
 
+        if os.path.isdir(repo_path):
+            not_valid = True;
+            os.chdir(repo_path)
+            result = self.execute_command("git rev-parse --is-inside-work-tree")
+            if len(result) == 0 or result[0].strip('\n') != "true":
+                not_valid = False
+
+        return not_valid
 
     def analyze(self, repo_path):
+        print self.check_validation(repo_path)
+        if self.check_validation(repo_path):
 
-        os.chdir(repo_path)
 
-        self.check_validation()
 
-        self.statistics["gitname"] = self.repo_name()
+            self.statistics["gitname"] = self.repo_name()
 
-        self.statistics["file_count"] = self.number_of_files()
+            self.statistics["file_count"] = self.number_of_files()
 
-        self.statistics["line_count_total"] = self.number_of_lines()
+            self.statistics["line_count_total"] = self.number_of_lines()
 
-        self.statistics["com_stats"] = self.committer_stats()
+            self.statistics["com_stats"] = self.committer_stats()
 
-        self.statistics["br_stats"] = self.branch_stats()
+            self.statistics["br_stats"] = self.branch_stats()
 
-        return self.statistics
+            return self.statistics
+        else:
+            return {}

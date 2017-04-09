@@ -16,6 +16,7 @@
 
                 $scope.getResults = function() {
                     $scope.results = false;
+                    $scope.error = false;
 
                     // get the URL from the input
                     var userInput = $scope.path;
@@ -26,6 +27,7 @@
 
                     $http.post('/analyze', {"path": userInput}).
                     then(function(response) {
+                        console.log(response);
                         $scope.processing = false;
                         $scope.results = true;
                         $scope.result = response.data;
@@ -42,6 +44,8 @@
                             });
                         });
                     }, function(error) {
+                        $scope.error = true;
+                        $scope.processing = false;
 
                     });
 

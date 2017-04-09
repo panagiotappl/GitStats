@@ -61,6 +61,12 @@
         </form>
          <div ng-show="processing" id="spinner" class="container-fluid" align="middle" ng-cloak>
         </div>
+        <div ng-hide="processing || error" id="messege" class="container-fluid messege" align="middle" ng-cloak>
+            <p>Insert the full path of your given Git Repository above.</p>
+        </div>
+        <div ng-show="error" id="messege" class="container-fluid messege" align="middle" ng-animate="'animate'" ng-cloak>
+            <p>Not a valid Git Repository!</p>
+        </div>
     </div>
 
 
@@ -316,7 +322,8 @@
         </div>
     </div>
     <footer class="footer text-center">
-        <p>Developed by: Panagiota Poulopoulou</p>
+        <p>Developed by: </p>
+        <p>Panagiota Poulopoulou <br> Panos Paparrigopoulos</p>
         <p><a href="https://github.com/panagiotappl/GitStats">View code</a> on GitHub</p>
     </footer>
 

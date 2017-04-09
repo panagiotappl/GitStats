@@ -2,6 +2,37 @@ body{
     font-family: Montserrat, sans-serif;
     background-color: #ddd;
 }
+
+
+.animate-enter,
+.animate-leave
+{
+	-webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	-o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+	position: relative;
+	display: block;
+	overflow: hidden;
+	text-overflow: clip;
+	white-space:nowrap;
+}
+
+.animate-leave.animate-leave-active,
+.animate-enter {
+	opacity: 0;
+	width: 0px;
+	height: 0px;
+}
+
+.animate-enter.animate-enter-active,
+.animate-leave {
+	opacity: 1;
+	width: 150px;
+	height: 30px;
+}
+
 input[type="text"] {
     background:transparent;
     border: none;
@@ -76,6 +107,13 @@ input[type="text"]:focus {
     padding-bottom: 2%;
    }
 
+#content{
+    padding-bottom: 7%;
+}
+.messege{
+    color: #7c7c7c;
+
+}
 .table>tbody>tr>td {
     padding: 8px;
     line-height: 1.42857143;
@@ -175,9 +213,10 @@ h1{
 }
 
 .container-fluid{
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 60px 50px;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 #history.container-fluid{

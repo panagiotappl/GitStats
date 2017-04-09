@@ -22,6 +22,8 @@ def analyze():
     data = json.loads(request.data.decode())
     path = data["path"]
     statistics = analyzer.analyze(path)
+    if not statistics:
+        return jsonify({}), 404
     return jsonify(statistics)
 
 
