@@ -161,6 +161,15 @@ h1{
     font-size	: 10px;
 }
 
+#chartdiv2 {
+    width		: 100%;
+    height		: 500px;
+    font-size	: 10px;
+}
+
+#pieChart{
+    height: 500px;
+}
 #particles-js {
     background-color: #2a313d;
     position: absolute;

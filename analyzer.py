@@ -240,13 +240,14 @@ class Analyzer:
         # Commit percentage per branch per author (remote)
         # Ignore first element (HEAD pointer).
         for branch in remoteB[1:]:
+            branch = branch.strip('* ')
             branch_total_commits = self.execute_command("git rev-list --count " + branch)[0].strip()
             result = self.execute_command("git shortlog -sn " + branch)
             com_br_authR[branch.strip()] = []
             for res in result:
-                if len(res) is 2:
-                    commits = res.split()[0]
-                    name = res.split()[1]
+                if len(res.split('\t', 1)) is 2:
+                    commits = res.split('\t', 1)[0]
+                    name = res.split('\t', 1)[1]
                     percentage = round(float(commits) / float(branch_total_commits) * 100, 2)
                     com_br_authR[branch.strip()].append([name, percentage])
 
@@ -291,7 +292,6 @@ class Analyzer:
             if len(res) is 2:
                 commits = res[0]
                 name = res[1]
-                print commits, "  ", name
                 com_rates[name] = [round(float(commits) / float(days), 3), round(float(commits) / float(days) * 7, 3),
                                    round(float(commits) / float(days) * 30, 3)]
                 # A week is 7 days.
@@ -308,6 +308,15 @@ class Analyzer:
             branch_commits_count = len(self.execute_command("git log --pretty=format:\"%h\" " + branch))
             br_stats["branchCommits"][branch] = str(round(float(branch_commits_count) / float(commits_count) * 100, 2))
 
+        br_stats["branchCommitsR"] = {}
+
+        for branch in remoteB:
+            branch = branch.strip('* ').strip()
+            if re.search('origin/HEAD -> ', branch, re.IGNORECASE):
+                continue
+
+            branch_commits_count = len(self.execute_command("git log --pretty=format:\"%h\" " + branch))
+            br_stats["branchCommitsR"][branch] = str(round(float(branch_commits_count) / float(commits_count) * 100, 2))
         return br_stats
 
     def check_validation(self, repo_path):

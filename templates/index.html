@@ -17,13 +17,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
     <script src="http://code.angularjs.org/1.5.3/angular-route.js"></script>
     <script src="http://spin.js.org/spin.min.js"></script>
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <script src="//www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="//www.amcharts.com/lib/3/serial.js"></script>
+    <script src="//www.amcharts.com/lib/3/themes/light.js"></script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
 
 
 
@@ -72,6 +69,7 @@
 
 
     <div id='content' ng-if="results" align="middle">
+
        <div id="general" class="container-fluid " align="middle">
            <h1>General</h1>
            <div class="row">
@@ -141,6 +139,7 @@
             <div class="row">
                 <h1>Statistics</h1>
             </div>
+
             <div class="row">
                 <h2>Percentage of commits per author</h2>
             </div>
@@ -159,7 +158,10 @@
                     </tr>
                     </tbody>
                 </table>
+
                 <div id="pieChart">
+
+
                 </div>
             </div>
             <div class="row">
@@ -209,7 +211,7 @@
                 </table>
             </div>
             <div class="row">
-                <h2> Number of commits per branch </h2>
+                <h2> Number of commits per  branch </h2>
             </div>
             <div class="row">
                 <table class="table table-striped">
@@ -228,13 +230,29 @@
                 </table>
             </div>
             <div class="row">
-                <h2>Percentage of commits per branch</h2>
-            </div>
-            <div class="row">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th class="header bgteal">Branch</th>
+                        <th class="header bgdark">Remote Branch</th>
+                        <th class="header bgdark">Number of commits</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key, value) in result.br_stats.com_branchR">
+                        <td>//key//</td>
+                        <td>//value//</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <h2>Percentage of commits per Local Branch</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bgteal">Local Branch</th>
                         <th class="header bgteal">Percentage of commits</th>
                     </tr>
                     </thead>
@@ -245,10 +263,39 @@
                     </tr>
                     </tbody>
                 </table>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartdiv"></div>
+
+                </div>
             </div>
-            <div id="chartdiv"></div>
             <div class="row">
-                <h2>Percentage of commits per author per branch</h2>
+                <h2>Percentage of commits per Remote Branch</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bgteal">Remote Branch</th>
+                        <th class="header bgteal">Percentage of commits</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key, value) in result.br_stats.branchCommitsR">
+                        <td>//key//</td>
+                        <td>//value// %</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="col-md-6">
+                    <div id="chartdiv2"></div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <h2>Percentage of commits per author per Local Branch</h2>
             </div>
             <div class="row">
                 <table class="table table-striped">
@@ -261,6 +308,29 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="value in com_br_authL">
+                        <td>//value[0]//</td>
+                        <td>//value[1]//</td>
+                        <td>//value[2]//</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <h2>Percentage of commits per author per Remote Branch</h2>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="header bglightteal">Remote Branch</th>
+                        <th class="header bglightteal">Author</th>
+                        <th class="header bglightteal">% of commits</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="value in com_br_authR">
                         <td>//value[0]//</td>
                         <td>//value[1]//</td>
                         <td>//value[2]//</td>
@@ -333,4 +403,6 @@
 <script type="text/javascript" src="{{ url_for('static', filename = 'particles.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'spinner.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'scroller.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'app.js') }}"></script>
+
 </html>
