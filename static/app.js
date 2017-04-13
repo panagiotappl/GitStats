@@ -27,6 +27,8 @@
 
                     $http.post('/analyze', {"path": userInput}).
                     then(function(response) {
+                                                console.log(userInput);
+
                         console.log(response);
                         $scope.processing = false;
                         $scope.results = true;
@@ -44,6 +46,7 @@
                             });
                         });
                     }, function(error) {
+                        console.log(userInput);
                         $scope.error = true;
                         $scope.processing = false;
 
