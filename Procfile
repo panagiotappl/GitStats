@@ -1,1 +1,1 @@
-web: gunicorn GitStats:app
+web: gunicorn -b 0.0.0.0:$PORT GitStats:app
