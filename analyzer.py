@@ -4,6 +4,7 @@ import re
 import subprocess
 from datetime import datetime
 from itertools import izip
+import time
 
 
 class Analyzer:
@@ -332,10 +333,11 @@ class Analyzer:
         return not_valid
 
     def analyze(self, repo_path):
+        # your code here
+
         print self.check_validation(repo_path)
         if self.check_validation(repo_path):
-
-
+            start = time.time()
 
             self.statistics["gitname"] = self.repo_name()
 
@@ -346,6 +348,7 @@ class Analyzer:
             self.statistics["com_stats"] = self.committer_stats()
 
             self.statistics["br_stats"] = self.branch_stats()
+            print time.time() - start
 
             return self.statistics
         else:
