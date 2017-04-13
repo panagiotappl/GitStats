@@ -20,7 +20,7 @@
 
                     // get the URL from the input
                     var userInput = $scope.path;
-
+                    console.log(userInput);
                     // fire the API request
                     $scope.idle = false;
                     $scope.processing = true;
